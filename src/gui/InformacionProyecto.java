@@ -13,13 +13,14 @@ public class InformacionProyecto extends JDialog {
 
     public InformacionProyecto(Frame frame, Integer numero, String informacion) {
         super(frame);
-        this.numero=numero;
+        this.numero = numero;
         this.informacion = informacion;
         setSize(500, 300);
         setLocationRelativeTo(frame);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         crearComponentes();
     }
+
     private void crearComponentes() {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -45,8 +46,7 @@ public class InformacionProyecto extends JDialog {
         JScrollPane scroll = new JScrollPane(
                 textArea,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
-        );
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         gbc.gridy = 1;
         gbc.weighty = 1.0;

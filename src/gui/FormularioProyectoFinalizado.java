@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-public class FormularioProyectoFinalizado extends JDialog{
+public class FormularioProyectoFinalizado extends JDialog {
     private JFormattedTextField fechaFinalizacion;
     private JButton btnAceptar;
 
@@ -35,16 +35,17 @@ public class FormularioProyectoFinalizado extends JDialog{
         fechaFinalizacion.setColumns(5);
         btnAceptar = new JButton("Aceptar");
 
-
         // --- Diseño ---
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         panel.add(labelFecha, gbc);
         gbc.gridx = 1;
         panel.add(fechaFinalizacion, gbc);
 
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnAceptar);
-        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
         panel.add(panelBotones, gbc);
         add(panel);

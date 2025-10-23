@@ -9,7 +9,7 @@ public class FormularioEmpleado extends JPanel {
 
     private PanelManager panelManager;
     private JPanel formularioEmpleado;
-    private  JLabel tipoContratado;
+    private JLabel tipoContratado;
     private JLabel tipoPermanente;
     private JLabel nombreContratado;
     private JLabel nombrePermanente;
@@ -25,11 +25,12 @@ public class FormularioEmpleado extends JPanel {
     private JButton agregaPermanente;
     private JButton volver;
 
-    public FormularioEmpleado( PanelManager panelManager) {
+    public FormularioEmpleado(PanelManager panelManager) {
         this.panelManager = panelManager;
         armarFormulario();
     }
-    public void armarFormulario(){
+
+    public void armarFormulario() {
         armarPantalla();
         volver.addActionListener(new ActionListener() {
             @Override
@@ -41,10 +42,10 @@ public class FormularioEmpleado extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    panelManager.sistema().registrarEmpleado(textNombreP.getText(), Double.parseDouble(textValorDia.getText()),
+                    panelManager.sistema().registrarEmpleado(textNombreP.getText(),
+                            Double.parseDouble(textValorDia.getText()),
                             cCategoria.getSelectedItem().toString());
-                }
-                catch(IllegalArgumentException exception){
+                } catch (IllegalArgumentException exception) {
                     JOptionPane.showMessageDialog(null, "Los valores ingresados no son validos");
                 }
             }
@@ -53,38 +54,38 @@ public class FormularioEmpleado extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    panelManager.sistema().registrarEmpleado(textNombreC.getText(), Double.parseDouble(textValorHora.getText()));
-                }
-                catch (IllegalArgumentException exception)
-                {
+                    panelManager.sistema().registrarEmpleado(textNombreC.getText(),
+                            Double.parseDouble(textValorHora.getText()));
+                } catch (IllegalArgumentException exception) {
                     JOptionPane.showMessageDialog(null, "Los valores ingresados no son validos");
                 }
             }
         });
         setLayout(new BorderLayout());
-        add(formularioEmpleado,BorderLayout.CENTER);
+        add(formularioEmpleado, BorderLayout.CENTER);
     }
-    public void armarPantalla(){
-        GridBagConstraints gbc=new GridBagConstraints();
-        tipoContratado=new JLabel("Empleado contratado");
+
+    public void armarPantalla() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        tipoContratado = new JLabel("Empleado contratado");
         tipoContratado.setFont(new Font("Arial", Font.BOLD, 20));
-        tipoPermanente=new JLabel("Empleado de Planta Permanente");
+        tipoPermanente = new JLabel("Empleado de Planta Permanente");
         tipoPermanente.setFont(new Font("Arial", Font.BOLD, 20));
-        nombreContratado =new JLabel("Nombre empleado");
-        nombrePermanente=new JLabel("Nombre empleado");
-        valorHora=new JLabel("Valor hora");
-        valorDia=new JLabel("Valor dia");
-        categoria=new JLabel("Categoria");
-         textNombreC=new JTextField(30);
-        textNombreP=new JTextField(30);
-        textValorHora=new JTextField(10);
-        textValorDia=new JTextField(10);
-        String[] items={"INICIAL","TECNICO","EXPERTO"};
-        cCategoria=new JComboBox(items);
-        agregaContratado=new JButton("Agregar nuevo Contratado");
-        agregaPermanente=new JButton("Agrgar nuevo Permanente");
-        volver=new JButton("Volver al menu");
-        formularioEmpleado=new JPanel();
+        nombreContratado = new JLabel("Nombre empleado");
+        nombrePermanente = new JLabel("Nombre empleado");
+        valorHora = new JLabel("Valor hora");
+        valorDia = new JLabel("Valor dia");
+        categoria = new JLabel("Categoria");
+        textNombreC = new JTextField(30);
+        textNombreP = new JTextField(30);
+        textValorHora = new JTextField(10);
+        textValorDia = new JTextField(10);
+        String[] items = { "INICIAL", "TECNICO", "EXPERTO" };
+        cCategoria = new JComboBox(items);
+        agregaContratado = new JButton("Agregar nuevo Contratado");
+        agregaPermanente = new JButton("Agrgar nuevo Permanente");
+        volver = new JButton("Volver al menu");
+        formularioEmpleado = new JPanel();
         formularioEmpleado.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
@@ -124,7 +125,7 @@ public class FormularioEmpleado extends JPanel {
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
-        gbc.ipady=20;
+        gbc.ipady = 20;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.gridx = 0;

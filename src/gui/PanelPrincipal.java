@@ -14,21 +14,19 @@ public class PanelPrincipal extends JPanel {
     private JButton jButtonNuevoProyecto;
     private JButton jButtonListaProyectos;
 
-
-    public PanelPrincipal(PanelManager panel)
-    {
-        this.panel=panel;
+    public PanelPrincipal(PanelManager panel) {
+        this.panel = panel;
         armarFormulario();
     }
-    public void armarFormulario()
-    {
 
-        panelPrincipal=new JPanel();
-        panelPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
-        jButtonNuevoEmpleado=new JButton("Nuevo Empleado");
-        jButtonGestionEmpleados=new JButton("Gestión Empleados");
-        jButtonNuevoProyecto=new JButton("Nuevo Proyecto");
-        jButtonListaProyectos=new JButton("Lista Proyectos");
+    public void armarFormulario() {
+
+        panelPrincipal = new JPanel();
+        panelPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        jButtonNuevoEmpleado = new JButton("Nuevo Empleado");
+        jButtonGestionEmpleados = new JButton("Gestión Empleados");
+        jButtonNuevoProyecto = new JButton("Nuevo Proyecto");
+        jButtonListaProyectos = new JButton("Lista Proyectos");
         panelPrincipal.add(jButtonNuevoEmpleado);
         panelPrincipal.add(jButtonGestionEmpleados);
         panelPrincipal.add(jButtonNuevoProyecto);
@@ -59,6 +57,6 @@ public class PanelPrincipal extends JPanel {
             }
         });
         setLayout(new BorderLayout());
-        add(panelPrincipal,BorderLayout.CENTER);
+        add(panelPrincipal, BorderLayout.CENTER);
     }
 }

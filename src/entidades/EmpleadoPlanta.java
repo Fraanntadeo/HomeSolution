@@ -24,7 +24,8 @@ public class EmpleadoPlanta implements IEmpleado {
         if (valorDia <= 0) {
             throw new IllegalArgumentException("El valor por día debe ser mayor que 0");
         }
-        if (categoria == null || (!categoria.equals("INICIAL") && !categoria.equals("TÉCNICO") && !categoria.equals("EXPERTO"))) {
+        if (categoria == null
+                || (!categoria.equals("INICIAL") && !categoria.equals("TÉCNICO") && !categoria.equals("EXPERTO"))) {
             throw new IllegalArgumentException("La categoría debe ser INICIAL, TÉCNICO o EXPERTO");
         }
         this.nombre = nombre;
@@ -70,12 +71,12 @@ public class EmpleadoPlanta implements IEmpleado {
         // Medio día cuenta como día completo
         double diasReales = Math.ceil(dias);
         double costo = valorDia * diasReales;
-        
+
         // Si no tiene retrasos, aplica bonus del 2%
         if (!tuvoRetrasos()) {
             costo *= (1 + BONUS_SIN_RETRASOS);
         }
-        
+
         return costo;
     }
 

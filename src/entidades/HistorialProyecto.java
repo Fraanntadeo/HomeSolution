@@ -20,9 +20,9 @@ public class HistorialProyecto {
         if (empleado == null || tarea == null) {
             throw new IllegalArgumentException("Empleado y tarea no pueden ser nulos");
         }
-        
+
         empleadosAsignados.add(empleado);
-        
+
         tareasRealizadas.computeIfAbsent(empleado, k -> new ArrayList<>()).add(tarea);
     }
 
@@ -39,9 +39,8 @@ public class HistorialProyecto {
     }
 
     public List<Tarea> getTareasRealizadas(IEmpleado empleado) {
-        return tareasRealizadas.containsKey(empleado) ? 
-               new ArrayList<>(tareasRealizadas.get(empleado)) : 
-               new ArrayList<>();
+        return tareasRealizadas.containsKey(empleado) ? new ArrayList<>(tareasRealizadas.get(empleado))
+                : new ArrayList<>();
     }
 
     public Map<IEmpleado, List<Tarea>> getTareasRealizadas() {

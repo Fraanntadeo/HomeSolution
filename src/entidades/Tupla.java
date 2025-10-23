@@ -1,6 +1,6 @@
 package entidades;
 
-public class Tupla <T1,T2>{
+public class Tupla<T1, T2> {
     private T1 valor1;
     private T2 valor2;
 

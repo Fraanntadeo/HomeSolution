@@ -18,17 +18,17 @@ public class PanelManager {
     private GestionProyectos gestionProyectos;
     private GestionEmpleados gestionEmpleados;
 
-    public PanelManager(HomeSolution h)
-    {   jFrame=new JFrame();
+    public PanelManager(HomeSolution h) {
+        jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        principal=new PanelPrincipal(this);
-        this.homeSolution=h;
+        principal = new PanelPrincipal(this);
+        this.homeSolution = h;
         mostrar(principal);
     }
-    public void mostrar(JPanel panel)
-    {
+
+    public void mostrar(JPanel panel) {
         jFrame.getContentPane().removeAll();
-        jFrame.getContentPane().add(BorderLayout.CENTER,panel);
+        jFrame.getContentPane().add(BorderLayout.CENTER, panel);
         jFrame.getContentPane().validate();
         jFrame.getContentPane().repaint();
         jFrame.setResizable(false);
@@ -40,35 +40,35 @@ public class PanelManager {
         return homeSolution;
     }
 
-    public void seleccionar(Integer num)
-    {
-        seleccionado=num;
+    public void seleccionar(Integer num) {
+        seleccionado = num;
     }
-    public Integer consultarSeleccionado(){
+
+    public Integer consultarSeleccionado() {
         return seleccionado;
     }
-    public void mostrar(int codigoPantalla)
-    {
-        if (codigoPantalla==1)
-             mostrar(principal);
-        if (codigoPantalla==3){
-            gestionEmpleados=gestionEmpleados==null?new GestionEmpleados(this):gestionEmpleados;
+
+    public void mostrar(int codigoPantalla) {
+        if (codigoPantalla == 1)
+            mostrar(principal);
+        if (codigoPantalla == 3) {
+            gestionEmpleados = gestionEmpleados == null ? new GestionEmpleados(this) : gestionEmpleados;
             mostrar(gestionEmpleados);
         }
-        if (codigoPantalla==2){
-            formularioEmpleado=formularioEmpleado==null?new FormularioEmpleado(this):formularioEmpleado;
+        if (codigoPantalla == 2) {
+            formularioEmpleado = formularioEmpleado == null ? new FormularioEmpleado(this) : formularioEmpleado;
             mostrar(formularioEmpleado);
         }
-        if (codigoPantalla==4){
-            formularioProyecto=formularioProyecto==null?new FormularioProyecto(this):formularioProyecto;
+        if (codigoPantalla == 4) {
+            formularioProyecto = formularioProyecto == null ? new FormularioProyecto(this) : formularioProyecto;
             mostrar(formularioProyecto);
         }
-        if (codigoPantalla==5) {
-           listaProyectos = listaProyectos == null ? new ListaProyectos(this) : listaProyectos;
+        if (codigoPantalla == 5) {
+            listaProyectos = listaProyectos == null ? new ListaProyectos(this) : listaProyectos;
             mostrar(listaProyectos);
         }
-        if (codigoPantalla==6) {
-            gestionProyectos= gestionProyectos == null ? new GestionProyectos(this) : gestionProyectos;
+        if (codigoPantalla == 6) {
+            gestionProyectos = gestionProyectos == null ? new GestionProyectos(this) : gestionProyectos;
             mostrar(gestionProyectos);
         }
 

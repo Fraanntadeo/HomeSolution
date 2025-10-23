@@ -38,13 +38,13 @@ public class FormularioProyecto extends JPanel {
     private JButton crearProyecto;
     private JButton volverPrincipal;
 
-
     public FormularioProyecto(PanelManager panelManager) {
         this.panelManager = panelManager;
         armarFormulario();
     }
-    public void armarFormulario()
-    {   DefaultTableModel modelTabla=new DefaultTableModel();
+
+    public void armarFormulario() {
+        DefaultTableModel modelTabla = new DefaultTableModel();
         armarPantalla(modelTabla);
         volverPrincipal.addActionListener(new ActionListener() {
             @Override
@@ -72,37 +72,39 @@ public class FormularioProyecto extends JPanel {
         crearProyecto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               String[] titulos=new String[modelTabla.getRowCount()];
-               String[] desc=new String[modelTabla.getRowCount()];;
-               double[] dias=new double[modelTabla.getRowCount()];;
-               String[] cliente={textClienteNombre.getText(),
-                                 textClienteMail.getText(),
-                                 textClienteTelefono.getText()};
-               armarArrays(titulos, desc,dias, modelTabla);
-               try {
-                   panelManager.sistema().registrarProyecto(titulos, desc, dias, textDomicilio.getText(),
-                           cliente, textFechaInicio.getText(),
-                           textFechaFin.getText());
-                   panelManager.mostrar(5);
-               }
-               catch (IllegalArgumentException exception){
-                   JOptionPane.showMessageDialog(null, "Los valores ingresados no son validos");
-               }
+                String[] titulos = new String[modelTabla.getRowCount()];
+                String[] desc = new String[modelTabla.getRowCount()];
+                ;
+                double[] dias = new double[modelTabla.getRowCount()];
+                ;
+                String[] cliente = { textClienteNombre.getText(),
+                        textClienteMail.getText(),
+                        textClienteTelefono.getText() };
+                armarArrays(titulos, desc, dias, modelTabla);
+                try {
+                    panelManager.sistema().registrarProyecto(titulos, desc, dias, textDomicilio.getText(),
+                            cliente, textFechaInicio.getText(),
+                            textFechaFin.getText());
+                    panelManager.mostrar(5);
+                } catch (IllegalArgumentException exception) {
+                    JOptionPane.showMessageDialog(null, "Los valores ingresados no son validos");
+                }
             }
         });
         setLayout(new BorderLayout());
-        add(formularioProyecto,BorderLayout.CENTER);
+        add(formularioProyecto, BorderLayout.CENTER);
     }
-    private void armarArrays(String[] titulos, String[] desc,double[] dias, DefaultTableModel tabla){
-        for(int i=0;i<tabla.getRowCount();i++){
-            titulos[i]=tabla.getValueAt(i,0).toString().trim();
-            desc[i]=tabla.getValueAt(i,1).toString();
-            dias[i]=Double.parseDouble(tabla.getValueAt(i,2).toString());
+
+    private void armarArrays(String[] titulos, String[] desc, double[] dias, DefaultTableModel tabla) {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            titulos[i] = tabla.getValueAt(i, 0).toString().trim();
+            desc[i] = tabla.getValueAt(i, 1).toString();
+            dias[i] = Double.parseDouble(tabla.getValueAt(i, 2).toString());
         }
     }
 
-    private void armarPantalla(DefaultTableModel modelTabla)
-    {   GridBagConstraints gbc = new GridBagConstraints();
+    private void armarPantalla(DefaultTableModel modelTabla) {
+        GridBagConstraints gbc = new GridBagConstraints();
 
         modelTabla.addColumn("Titulo");
         modelTabla.addColumn("Descripción");
@@ -113,36 +115,36 @@ public class FormularioProyecto extends JPanel {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        titulo=new JLabel("Nuevo Proyecto");
+        titulo = new JLabel("Nuevo Proyecto");
         titulo.setFont(new Font("Arial", Font.BOLD, 18));
-        tareas =new JLabel("Tareas");
+        tareas = new JLabel("Tareas");
         tareas.setFont(new Font("Arial", Font.BOLD, 16));
-        labelTituloTarea=new JLabel("Titulo");
-        labelDescTarea=new JLabel("Descripción");
-        labelDiasTarea=new JLabel("Dias");
-        textTituloTarea=new JTextField(30);
-        textDescTarea=new JTextField(50);
-        textDiasTarea=new JTextField(10);
+        labelTituloTarea = new JLabel("Titulo");
+        labelDescTarea = new JLabel("Descripción");
+        labelDiasTarea = new JLabel("Dias");
+        textTituloTarea = new JTextField(30);
+        textDescTarea = new JTextField(50);
+        textDiasTarea = new JTextField(10);
 
-        clienteNombre=new JLabel("Nombre cliente");
-        clienteMail=new JLabel("eMail cliente");
-        clienteTelefono=new JLabel("Telefono cliente");
-        domicilio=new JLabel("Domicilio");
-        fechaInicio=new JLabel("Fecha de inicio");
-        fechaFin=new JLabel("Fecha finalización");
+        clienteNombre = new JLabel("Nombre cliente");
+        clienteMail = new JLabel("eMail cliente");
+        clienteTelefono = new JLabel("Telefono cliente");
+        domicilio = new JLabel("Domicilio");
+        fechaInicio = new JLabel("Fecha de inicio");
+        fechaFin = new JLabel("Fecha finalización");
 
-        textClienteNombre=new JTextField(30);
-        textClienteMail=new JTextField(50);
-        textClienteTelefono=new JTextField(10);
-        textDomicilio=new JTextField(40);
-        textFechaInicio=new JFormattedTextField(formatter);
-        textFechaFin=new JFormattedTextField(formatter);
-        tableTareas=new JTable(modelTabla);
+        textClienteNombre = new JTextField(30);
+        textClienteMail = new JTextField(50);
+        textClienteTelefono = new JTextField(10);
+        textDomicilio = new JTextField(40);
+        textFechaInicio = new JFormattedTextField(formatter);
+        textFechaFin = new JFormattedTextField(formatter);
+        tableTareas = new JTable(modelTabla);
         JScrollPane scrollPane = new JScrollPane(tableTareas);
-        agregar=new JButton("Agregar");
-        crearProyecto=new JButton("Crear Proyecto");
-        volverPrincipal=new JButton("Volver al menu");
-        formularioProyecto=new JPanel();
+        agregar = new JButton("Agregar");
+        crearProyecto = new JButton("Crear Proyecto");
+        volverPrincipal = new JButton("Volver al menu");
+        formularioProyecto = new JPanel();
         formularioProyecto.setLayout(new GridBagLayout());
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -196,9 +198,9 @@ public class FormularioProyecto extends JPanel {
         formularioProyecto.add(fechaFin, gbc);
         gbc.gridx = 0;
         gbc.gridy = 8;
-        formularioProyecto.add(domicilio,gbc);
+        formularioProyecto.add(domicilio, gbc);
         gbc.gridx = 1;
-        formularioProyecto.add(textDomicilio,gbc);
+        formularioProyecto.add(textDomicilio, gbc);
         gbc.gridx = 2;
         formularioProyecto.add(textFechaInicio, gbc);
         gbc.gridx = 3;
@@ -208,7 +210,7 @@ public class FormularioProyecto extends JPanel {
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
-        gbc.ipady=20;
+        gbc.ipady = 20;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         formularioProyecto.add(crearProyecto, gbc);
@@ -216,7 +218,7 @@ public class FormularioProyecto extends JPanel {
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
         gbc.fill = java.awt.GridBagConstraints.BOTH;
-        gbc.ipady=20;
+        gbc.ipady = 20;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         formularioProyecto.add(volverPrincipal, gbc);
