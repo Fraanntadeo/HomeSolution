@@ -212,9 +212,20 @@ public class HomeSolution implements IHomeSolution {
 
     @Override
     public void finalizarTarea(Integer numero, String titulo) throws Exception {
+        if (numero == null) {
+            throw new IllegalArgumentException("El número de proyecto no puede ser null");
+        }
+        if (titulo == null || titulo.trim().isEmpty()) {
+            throw new IllegalArgumentException("El título de la tarea no puede ser vacío");
+        }
+
         Proyecto proyecto = proyectos.get(numero);
         if (proyecto == null) {
             throw new IllegalArgumentException("Proyecto no encontrado");
+        }
+
+        if (proyecto.getEstado().equals(Estado.finalizado)) {
+            throw new Exception("No se pueden modificar tareas en un proyecto finalizado");
         }
 
         for (Tarea tarea : proyecto.getTareas()) {
@@ -222,6 +233,13 @@ public class HomeSolution implements IHomeSolution {
                 if (tarea.isTerminada()) {
                     throw new Exception("La tarea ya está finalizada");
                 }
+                
+                // Liberar al empleado asignado si existe
+                IEmpleado empleado = tarea.getEmpleadoAsignado();
+                if (empleado != null) {
+                    empleado.marcarComoDisponible();
+                }
+                
                 tarea.setTerminada(true);
                 return;
             }
