@@ -38,7 +38,7 @@ public class Proyecto {
         this.fechaEstimadaFin = fechaFin;
         this.fechaRealFin = null;
         this.tareas = new ArrayList<>();
-        this.estado = Estado.activo;
+        this.estado = Estado.pendiente;
         this.costoCalculado = 0;
         this.historial = new HistorialProyecto(numero);
     }
@@ -88,6 +88,15 @@ public class Proyecto {
             throw new IllegalArgumentException("La tarea no puede ser nula");
         }
         tareas.add(tarea);
+        
+        // Actualizar fechas
+        int diasAAgregar = (int) Math.ceil(tarea.getDuracionEstimada());
+        this.fechaEstimadaFin = this.fechaEstimadaFin.plusDays(diasAAgregar);
+        if (this.fechaRealFin != null) {
+            this.fechaRealFin = this.fechaRealFin.plusDays(diasAAgregar);
+        }
+        
+        actualizarCostoTotal();
     }
 
     public void registrarEmpleadoEnTarea(Tarea tarea, IEmpleado empleado) {
@@ -98,12 +107,24 @@ public class Proyecto {
     }
 
     public void actualizarCostoTotal() {
-        this.costoCalculado = 0;
+        double costoBase = 0;
         for (Tarea tarea : tareas) {
             if (tarea.getEmpleadoAsignado() != null) {
-                this.costoCalculado += tarea.getEmpleadoAsignado().calcularCosto(tarea.getDuracionEstimada());
+                costoBase += tarea.getEmpleadoAsignado().calcularCosto(tarea.getDuracionEstimada());
             }
         }
+        
+        // Aplicar margen según retrasos
+        boolean tieneRetrasos = false;
+        for (Tarea tarea : tareas) {
+            if (tarea.getDiasRetraso() > 0) {
+                tieneRetrasos = true;
+                break;
+            }
+        }
+        
+        double margen = tieneRetrasos ? 1.25 : 1.35;
+        this.costoCalculado = costoBase * margen;
     }
 
     public double getCostoCalculado() {
@@ -136,5 +157,25 @@ public class Proyecto {
 
     public boolean tieneDemora() {
         return fechaRealFin != null && fechaRealFin.isAfter(fechaEstimadaFin);
+    }
+
+    public void actualizarEstado() {
+        if (this.estado.equals(Estado.finalizado)) {
+            return;
+        }
+
+        boolean tieneTareasSinAsignar = false;
+        for (Tarea tarea : tareas) {
+            if (!tarea.tieneEmpleadoAsignado()) {
+                tieneTareasSinAsignar = true;
+                break;
+            }
+        }
+
+        if (tieneTareasSinAsignar) {
+            this.estado = Estado.pendiente;
+        } else {
+            this.estado = Estado.activo;
+        }
     }
 }

@@ -53,6 +53,8 @@ public class HomeSolution implements IHomeSolution {
             }
         }
 
+        proyecto.actualizarCostoTotal();
+        proyecto.actualizarEstado();
         proyectos.put(proyecto.getNumero(), proyecto);
     }
 
@@ -87,10 +89,16 @@ public class HomeSolution implements IHomeSolution {
         IEmpleado empleadoDisponible = empleados.values().stream()
                 .filter(IEmpleado::estaDisponible)
                 .findFirst()
-                .orElseThrow(() -> new Exception("No hay empleados disponibles"));
+                .orElse(null);
+
+        if (empleadoDisponible == null) {
+            proyecto.setEstado(Estado.pendiente);
+            throw new Exception("No hay empleados disponibles");
+        }
 
         tareaEncontrada.setEmpleadoAsignado(empleadoDisponible);
         proyecto.registrarEmpleadoEnTarea(tareaEncontrada, empleadoDisponible);
+        proyecto.actualizarEstado();
     }
 
     @Override
@@ -132,6 +140,7 @@ public class HomeSolution implements IHomeSolution {
         empleadoActual.marcarComoDisponible();
         nuevoEmpleado.marcarComoAsignado();
         tareaEncontrada.setEmpleadoAsignado(nuevoEmpleado);
+        proyecto.registrarEmpleadoEnTarea(tareaEncontrada, nuevoEmpleado);
     }
 
     @Override
@@ -182,6 +191,7 @@ public class HomeSolution implements IHomeSolution {
         empleadoActual.marcarComoDisponible();
         mejorEmpleado.marcarComoAsignado();
         tareaEncontrada.setEmpleadoAsignado(mejorEmpleado);
+        proyecto.registrarEmpleadoEnTarea(tareaEncontrada, mejorEmpleado);
     }
 
     @Override
@@ -204,6 +214,11 @@ public class HomeSolution implements IHomeSolution {
                     empleado.incrementarRetrasos();
                 }
                 tarea.agregarRetraso(retraso);
+
+                // Actualizar fecha real del proyecto
+                int diasRetraso = (int) Math.ceil(retraso);
+                proyecto.setFechaFin(proyecto.getFechaRealFin().plusDays(diasRetraso));
+                proyecto.actualizarCostoTotal();
                 return;
             }
         }
@@ -233,13 +248,13 @@ public class HomeSolution implements IHomeSolution {
                 if (tarea.isTerminada()) {
                     throw new Exception("La tarea ya está finalizada");
                 }
-                
+
                 // Liberar al empleado asignado si existe
                 IEmpleado empleado = tarea.getEmpleadoAsignado();
                 if (empleado != null) {
                     empleado.marcarComoDisponible();
                 }
-                
+
                 tarea.setTerminada(true);
                 return;
             }
@@ -486,6 +501,7 @@ public class HomeSolution implements IHomeSolution {
         tareaEncontrada.setEmpleadoAsignado(mejorEmpleado);
         mejorEmpleado.marcarComoAsignado();
         proyecto.registrarEmpleadoEnTarea(tareaEncontrada, mejorEmpleado);
+        proyecto.actualizarEstado();
     }
 
     @Override
@@ -514,6 +530,7 @@ public class HomeSolution implements IHomeSolution {
 
         Tarea nuevaTarea = new Tarea(titulo, descripcion, dias);
         proyecto.agregarTarea(nuevaTarea);
+        proyecto.actualizarEstado();
     }
 
     @Override

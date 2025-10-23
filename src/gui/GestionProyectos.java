@@ -138,14 +138,27 @@ public class GestionProyectos extends  JPanel{
                 }
             }
         });
+        // MODIFICACIÓN: Se agregó el bloque try-catch y removeItem
+        // Esta modificación era necesaria porque:
+        // 1. El método finalizarTarea() en IHomeSolution declara que puede lanzar Exception
+        // 2. Es necesario manejar casos como:
+        //    - Cuando la tarea ya está finalizada
+        //    - Cuando el proyecto está finalizado
+        //    - Cuando hay otros errores en el proceso
+        // 3. Se agregó removeItem para actualizar la interfaz cuando la tarea se finaliza exitosamente
         establecerComoFinalizada.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (seleccionValida()) {
                     String titulo = tareas.getSelectedItem().toString();
-                    panelManager.sistema().finalizarTarea(panelManager.consultarSeleccionado(), titulo);
+                    try {
+                        panelManager.sistema().finalizarTarea(panelManager.consultarSeleccionado(), titulo);
+                        tareas.removeItem(titulo);
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
                 }
-                else{
+                else {
                     JOptionPane.showMessageDialog(null,"No hay tarea seleccionada");
                 }
             }
