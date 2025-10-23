@@ -36,7 +36,7 @@ public class Proyecto {
         this.cliente = cliente;
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaFin = fechaFin;
-        this.fechaRealFin = null;
+        this.fechaRealFin = fechaFin;
         this.tareas = new ArrayList<>();
         this.estado = Estado.pendiente;
         this.costoCalculado = 0;
@@ -88,14 +88,14 @@ public class Proyecto {
             throw new IllegalArgumentException("La tarea no puede ser nula");
         }
         tareas.add(tarea);
-        
+
         // Actualizar fechas
         int diasAAgregar = (int) Math.ceil(tarea.getDuracionEstimada());
         this.fechaEstimadaFin = this.fechaEstimadaFin.plusDays(diasAAgregar);
         if (this.fechaRealFin != null) {
             this.fechaRealFin = this.fechaRealFin.plusDays(diasAAgregar);
         }
-        
+
         actualizarCostoTotal();
     }
 
@@ -113,7 +113,7 @@ public class Proyecto {
                 costoBase += tarea.getEmpleadoAsignado().calcularCosto(tarea.getDuracionEstimada());
             }
         }
-        
+
         // Aplicar margen según retrasos
         boolean tieneRetrasos = false;
         for (Tarea tarea : tareas) {
@@ -122,7 +122,7 @@ public class Proyecto {
                 break;
             }
         }
-        
+
         double margen = tieneRetrasos ? 1.25 : 1.35;
         this.costoCalculado = costoBase * margen;
     }
