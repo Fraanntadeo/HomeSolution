@@ -51,9 +51,20 @@ public class HomeSolution implements IHomeSolution {
     @Override
     public void registrarProyecto(String[] titulos, String[] descripciones, double[] duraciones,
             String domicilio, String[] cliente, String fechaInicio, String fechaFin) {
+        // Validación de nulos
         if (titulos == null || descripciones == null || duraciones == null ||
                 domicilio == null || cliente == null || fechaInicio == null || fechaFin == null) {
             throw new IllegalArgumentException("Ningún parámetro puede ser nulo");
+        }
+        
+        // Validación de arrays vacíos
+        if (titulos.length == 0) {
+            throw new IllegalArgumentException("Debe proporcionar al menos una tarea");
+        }
+        
+        // Validación de longitudes consistentes
+        if (titulos.length != descripciones.length || titulos.length != duraciones.length) {
+            throw new IllegalArgumentException("Los arrays de tareas deben tener la misma longitud");
         }
 
         LocalDate inicio = LocalDate.parse(fechaInicio);

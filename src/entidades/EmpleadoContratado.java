@@ -90,8 +90,12 @@ public class EmpleadoContratado implements IEmpleado {
      */
     @Override
     public double calcularCosto(double dias) {
-        // Cada día tiene 8 horas, medio día es 4 horas
-        double horas = dias >= 1 ? dias * 8 : 4;
+        if (dias < 0) {
+            throw new IllegalArgumentException("Los días no pueden ser negativos");
+        }
+        // Para medio día o menos se consideran 4 horas
+        // Para más de medio día se calculan 8 horas por día
+        double horas = dias <= 0.5 ? 4 : dias * 8;
         return valorHora * horas;
     }
 

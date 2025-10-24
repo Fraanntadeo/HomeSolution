@@ -14,9 +14,19 @@ package entidades;
  * - tuvoRetrasos(): Indica si tiene retrasos registrados
  * - getCantidadRetrasos(): Obtiene el número total de retrasos
  */
+/**
+ * Esta interfaz define el comportamiento común para todos los tipos de empleados.
+ * Tanto empleados contratados como de planta deben implementar estos métodos.
+ */
 public interface IEmpleado {
+    /**
+     * @return el nombre del empleado
+     */
     String getNombre();
 
+    /**
+     * @return el número de legajo único del empleado
+     */
     int getLegajo();
 
     boolean estaDisponible();
