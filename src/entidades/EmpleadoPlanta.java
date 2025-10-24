@@ -1,5 +1,22 @@
 package entidades;
 
+/**
+ * Representa un empleado de planta permanente en el sistema.
+ * Los empleados de planta cobran por día y tienen una categoría asignada.
+ * 
+ * Características:
+ * - Cobra por día trabajado
+ * - Tiene una categoría (INICIAL, TÉCNICO, EXPERTO)
+ * - Recibe un bonus del 2% si no tiene retrasos
+ * - Puede estar disponible o asignado a una tarea
+ * 
+ * Invariantes:
+ * - nombre no puede ser null ni vacío
+ * - legajo debe ser > 0
+ * - valorDia debe ser > 0
+ * - categoria debe ser una de las tres permitidas
+ * - cantidadRetrasos debe ser >= 0
+ */
 public class EmpleadoPlanta implements IEmpleado {
     private static int siguienteLegajo = 1;
     private String nombre;
@@ -17,6 +34,25 @@ public class EmpleadoPlanta implements IEmpleado {
     // - categoria debe ser "INICIAL", "TÉCNICO" o "EXPERTO"
     // - cantidadRetrasos debe ser >= 0
 
+    /**
+     * Constructor para crear un nuevo empleado de planta.
+     * 
+     * Proceso de inicialización:
+     * 1. Valida el nombre y valor por día
+     * 2. Verifica que la categoría sea válida (INICIAL, TÉCNICO o EXPERTO)
+     * 3. Asigna un número de legajo único
+     * 4. Inicializa como disponible sin retrasos
+     *
+     * Categorías permitidas:
+     * - INICIAL: Para empleados nuevos
+     * - TÉCNICO: Para empleados con experiencia media
+     * - EXPERTO: Para empleados con alta experiencia
+     *
+     * @param nombre El nombre del empleado
+     * @param valorDia El valor que cobra por día trabajado
+     * @param categoria La categoría del empleado (INICIAL/TÉCNICO/EXPERTO)
+     * @throws IllegalArgumentException si algún parámetro es inválido
+     */
     public EmpleadoPlanta(String nombre, double valorDia, String categoria) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede ser vacío");

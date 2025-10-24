@@ -1,5 +1,20 @@
 package entidades;
 
+/**
+ * Representa un empleado contratado en el sistema.
+ * Los empleados contratados cobran por hora trabajada.
+ * 
+ * Características:
+ * - Cobra por hora (8 horas por día completo, 4 horas por medio día)
+ * - Mantiene registro de sus retrasos
+ * - Puede estar disponible o asignado a una tarea
+ * 
+ * Invariantes:
+ * - nombre no puede ser null ni vacío
+ * - legajo debe ser > 0
+ * - valorHora debe ser > 0
+ * - cantidadRetrasos debe ser >= 0
+ */
 public class EmpleadoContratado implements IEmpleado {
     private static int siguienteLegajo = 1;
     private String nombre;
@@ -8,6 +23,19 @@ public class EmpleadoContratado implements IEmpleado {
     private boolean disponible;
     private int cantidadRetrasos;
 
+    /**
+     * Constructor para crear un nuevo empleado contratado.
+     * 
+     * Proceso de inicialización:
+     * 1. Valida los parámetros de entrada
+     * 2. Asigna un número de legajo único
+     * 3. Inicializa el empleado como disponible
+     * 4. Establece el contador de retrasos en 0
+     *
+     * @param nombre El nombre del empleado
+     * @param valorHora El valor que cobra por hora trabajada
+     * @throws IllegalArgumentException si el nombre es inválido o el valor es <= 0
+     */
     public EmpleadoContratado(String nombre, double valorHora) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede ser vacío");
@@ -52,6 +80,14 @@ public class EmpleadoContratado implements IEmpleado {
         cantidadRetrasos++;
     }
 
+    /**
+     * Calcula el costo del trabajo realizado por el empleado contratado.
+     * - Un día completo se considera como 8 horas
+     * - Medio día se considera como 4 horas
+     * 
+     * @param dias La cantidad de días trabajados (puede ser fracción)
+     * @return El costo total calculado (valorHora * horas trabajadas)
+     */
     @Override
     public double calcularCosto(double dias) {
         // Cada día tiene 8 horas, medio día es 4 horas

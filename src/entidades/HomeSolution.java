@@ -3,6 +3,16 @@ package entidades;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Clase principal que implementa la interfaz IHomeSolution.
+ * Gestiona todo el sistema de HomeSolution, incluyendo empleados y proyectos.
+ * 
+ * Responsabilidades:
+ * - Registro y gestión de empleados (contratados y de planta)
+ * - Registro y gestión de proyectos
+ * - Asignación de tareas a empleados
+ * - Control de estados de proyectos
+ */
 public class HomeSolution implements IHomeSolution {
     private Map<Integer, IEmpleado> empleados;
     private Map<Integer, Proyecto> proyectos;
@@ -12,6 +22,13 @@ public class HomeSolution implements IHomeSolution {
         this.proyectos = new HashMap<>();
     }
 
+    /**
+     * Registra un nuevo empleado contratado en el sistema.
+     * 
+     * @param nombre El nombre del empleado
+     * @param valor El valor por hora del empleado
+     * @throws IllegalArgumentException si el nombre es inválido o el valor es negativo
+     */
     @Override
     public void registrarEmpleado(String nombre, double valor) throws IllegalArgumentException {
         IEmpleado empleado = new EmpleadoContratado(nombre, valor);

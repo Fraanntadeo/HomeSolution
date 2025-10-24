@@ -4,6 +4,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa un proyecto en el sistema HomeSolution.
+ * Un proyecto contiene múltiples tareas y mantiene información sobre su estado,
+ * fechas y costos.
+ * 
+ * Características:
+ * - Identificado por un número único autogenerado
+ * - Mantiene lista de tareas
+ * - Controla fechas de inicio, fin estimado y fin real
+ * - Gestiona estados (pendiente, en_progreso, finalizado)
+ * - Calcula costos totales
+ * - Mantiene un historial de asignaciones
+ * 
+ * Invariantes:
+ * - domicilio no puede ser null ni vacío
+ * - cliente no puede ser null ni vacío
+ * - fechas no pueden ser null
+ * - fechaFin no puede ser anterior a fechaInicio
+ */
 public class Proyecto {
     private static int nextNumero = 1;
     private int numero;
